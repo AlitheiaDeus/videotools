@@ -3,7 +3,7 @@ import numpy as np
 import torch
 import torchvision.transforms as T
 
-def init_MiDaS(model_type = "MiDaS_small"):
+def init_MiDaS(model_type = "DPT_BEiT_L_384"):
     model = torch.hub.load("intel-isl/MiDaS", model_type)
     midas_transforms = torch.hub.load("intel-isl/MiDaS", "transforms")
     transform = midas_transforms.small_transform
@@ -13,7 +13,8 @@ def init_MiDaS(model_type = "MiDaS_small"):
 
 def init_Zoe():
     model_type = "ZoeD_NK"
-    model_zoe_nk = torch.hub.load("isl-org/ZoeDepth", model_type, pretrained=True)
+    torch.hub.load("intel-isl/MiDaS", "DPT_BEiT_L_384")
+    model_zoe_nk = torch.hub.load("isl-org/ZoeDepth", model_type, pretrained=True, force_reload=True)
     transform = T.ToTensor()
     device = torch.device("cuda")
     
@@ -95,10 +96,10 @@ def display_MiDaS(torch_mod = None):
     cv2.destroyAllWindows()  # Close all windows
 
 def minth():
-    model, transform, device = init_Zoe()
-    torch_mod = (model, transform, device)
+    # model, transform, device = init_Zoe()
+    # torch_mod = (model, transform, device)
     
-    display_MiDaS(torch_mod=torch_mod)
+    display_MiDaS()
 
 if __name__ == "__main__":
     minth()

@@ -16,7 +16,7 @@ from pytubefix.cli import on_progress
 def init_ZoeD():
     # INIT TORCH
     model_type = "ZoeD_NK"
-    model_zoe_nk = torch.hub.load("isl-org/ZoeDepth", model_type, pretrained=True)
+    model_zoe_nk = torch.hub.load("isl-org/ZoeDepth", model_type, pretrained=True, force_reload=True)
     if torch.cuda.is_available():
         device = torch.device("cuda")
     else:
