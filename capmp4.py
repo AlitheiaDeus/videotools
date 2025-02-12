@@ -77,16 +77,14 @@ def streamVid(filename, windowWidth, windowHeight):
     cap.release()
     cv2.destroyAllWindows()
 
-def main():
+def minth():
     print("In the beninging")
     
     windowWidth, windowHeight = 1280, 720
     
     filename = chooseVid()
     
-    
-    
     streamVid(filename, windowWidth, windowHeight)
 
 if __name__ == "__main__":
-    main()
+    minth()

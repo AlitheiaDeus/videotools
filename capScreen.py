@@ -20,5 +20,8 @@ def display_screen():
     
     cv2.destroyAllWindows()  # Close all windows
 
-if __name__ == "__main__":
+def minth():
     display_screen()
+
+if __name__ == "__main__":
+    minth()

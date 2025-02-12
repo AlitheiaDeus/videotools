@@ -8,8 +8,6 @@ def display_flowcam():
         print("Error: Could not open webcam.")
         return
     
-    
-    
     # Attempt to set to 4K or max cam size
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 4096)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160)
@@ -75,5 +73,9 @@ def display_flowcam():
     cap.release()  # Release the camera
     cv2.destroyAllWindows()  # Close all windows
 
-if __name__ == "__main__":
+def minth():
     display_flowcam()
+    return
+
+if __name__ == "__main__":
+    minth()
