@@ -70,11 +70,10 @@ def streamVid(filename, windowWidth, windowHeight):
         # wait_time = max(1, delay - int(elapsed_time))
         
         while time.time() < start_time + delay:
+            if cv2.waitKey(1) & 0xFF == ord('q'):  # Adjust waitKey value for playback speed
+                break
             pass
         
-        if cv2.waitKey(1) & 0xFF == ord('q'):  # Adjust waitKey value for playback speed
-            break
-    
     cap.release()
     cv2.destroyAllWindows()
 
