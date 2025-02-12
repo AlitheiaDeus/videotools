@@ -21,11 +21,12 @@ def display_webcam_native_resolution(loop_chk=True, rec_chk=False):
     
     if not loop_chk:
         ret, frame = cap.read()
-        cap.release()
-        frame = cv2.flip(frame, 1)
         if not ret:
             print("Error: Could not read frame.")
             return None
+        cap.release()
+        frame = cv2.flip(frame, 1)
+        
         cv2.imshow("Webcam Feed", frame)
         
         return frame
@@ -41,11 +42,10 @@ def display_webcam_native_resolution(loop_chk=True, rec_chk=False):
     
     while True:
         ret, frame = cap.read()
-        frame = cv2.flip(frame, 1)
-        
         if not ret:
             print("Error: Could not read frame.")
             break
+        frame = cv2.flip(frame, 1)
         
         cv2.imshow("Webcam Feed", frame)
         
