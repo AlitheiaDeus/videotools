@@ -1,10 +1,14 @@
+import time
+import glob
+import os
 import cv2
 import numpy as np
 import torch
 import torchvision.transforms as T
 
+
 def init_MiDaS(model_type = "DPT_BEiT_L_384"):
-    model = torch.hub.load("intel-isl/MiDaS", model_type, pretrained=False)
+    model = torch.hub.load("intel-isl/MiDaS", model_type, pretrained=True)
     midas_transforms = torch.hub.load("intel-isl/MiDaS", "transforms")
     transform = midas_transforms.dpt_transform
     device = torch.device("cuda")
@@ -22,8 +26,8 @@ def init_MiDaS(model_type = "DPT_BEiT_L_384"):
 
 def display_MiDaS(torch_mod = None):
     if torch_mod is None:
-        model_type = "DPT_BEiT_L_384"
-        model, transform, device = init_MiDaS("DPT_BEiT_L_384")
+        model_type = "DPT_Large"
+        model, transform, device = init_MiDaS(model_type)
     else:
         model, transform, device = torch_mod
     
@@ -50,7 +54,7 @@ def display_MiDaS(torch_mod = None):
     cv2.namedWindow("Depth Map", cv2.WINDOW_AUTOSIZE)
     cv2.moveWindow("Depth Map", 0,0)
     
-    scale = 0.5
+    scale = 0.25
     
     # -------------------------------------------------------------------------------------------------------------------------------------
     
@@ -77,14 +81,15 @@ def display_MiDaS(torch_mod = None):
                 align_corners=False,
             ).squeeze()
         
-        # -------------------------------------------------------------------------------------------------------------------------------------
-        
         depth_map = prediction.cpu().numpy()
+        
         normalized_depth_map = cv2.normalize(depth_map, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
         normalized_depth_map_color = cv2.applyColorMap(normalized_depth_map, cv2.COLORMAP_BONE)
         depth_frame = cv2.resize(normalized_depth_map_color, (width,height))
         
-        cv2.imshow("Depth Map", depth_frame)
+        overlay = cv2.addWeighted(frame, 0.1, depth_frame, 0.9, 0)
+        
+        cv2.imshow("Depth Map", overlay)
         
         # -------------------------------------------------------------------------------------------------------------------------------------
         

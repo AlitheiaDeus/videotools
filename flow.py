@@ -60,7 +60,7 @@ def display_flowcam():
         
         flow_im = cv2.resize(flow_im, (width, height))
         
-        overlay = cv2.addWeighted(flow_im, 0.2, frame, 0.8, 0)
+        overlay = cv2.addWeighted(flow_im, 0.9, frame, 0.1, 0)
         
         cv2.imshow("Flow Map", overlay)  # Display the frame
         
