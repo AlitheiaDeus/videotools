@@ -87,7 +87,7 @@ def display_MiDaS(torch_mod = None):
         normalized_depth_map_color = cv2.applyColorMap(normalized_depth_map, cv2.COLORMAP_BONE)
         depth_frame = cv2.resize(normalized_depth_map_color, (width,height))
         
-        overlay = cv2.addWeighted(frame, 0.1, depth_frame, 0.9, 0)
+        overlay = cv2.addWeighted(frame, 0.01, depth_frame, 0.99, 0)
         
         cv2.imshow("Depth Map", overlay)
         
